@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "banca",
+  "description": "Banca para o Claude Code: orquestração multi-agente para a prática jurídica, instalada só pelo Claude, sem terminal. Traz o motor (init, sync das áreas do Direito, squads, empacotador), a skill /banca, os agentes de núcleo (verificador de citações, avaliador de squad, catalog-scout, verificador de persuasão, contraditor) e os gates determinísticos de citação e redação. Requer Node.js 22.15 ou mais novo.",
+  "version": "1.3.0",
+  "author": {
+    "name": "Desperta.IA"
+  },
+  "homepage": "https://github.com/despertaia/banca",
+  "repository": "https://github.com/despertaia/banca",
+  "license": "UNLICENSED",
+  "keywords": [
+    "claude-code",
+    "ai-agents",
+    "multi-agent",
+    "orchestration",
+    "squads"
+  ]
+}
