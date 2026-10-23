@@ -1,0 +1,14 @@
+{
+  "name": "despertaia",
+  "description": "Marketplace da despertaia — plugins do Claude Code para a prática jurídica.",
+  "owner": {
+    "name": "despertaia",
+    "url": "https://github.com/despertaia"
+  },
+  "plugins": [
+    {
+      "name": "banca",
+      "source": "./plugin"
+    }
+  ]
+}

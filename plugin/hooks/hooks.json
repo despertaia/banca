@@ -1,0 +1,46 @@
+{
+  "description": "Banca: prepara a máquina no início da conversa, backstop de citações e disparador dos hooks do projeto.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if command -v node >/dev/null 2>&1; then node \"${CLAUDE_PLUGIN_ROOT}/motor/src/plugin-sessao.js\"; else printf '%s\\n' '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"O plugin da Banca está instalado, mas o Node.js não foi encontrado neste computador, e o motor da Banca roda em Node. Para pedidos jurídicos: diga ao usuário, em linguagem simples, que falta instalar o Node.js (versão LTS, 22.15 ou mais nova) pelo instalador de https://nodejs.org, com as opções padrão, e depois fechar e abrir o Claude. Não instale a Banca por npm nem por git, e não tente instalar o Node por conta própria. Até lá, os gates de citação também não rodam: nenhuma súmula ou precedente citado de memória.\"},\"systemMessage\":\"Banca: falta o Node.js neste computador. Baixe o instalador da versão LTS em https://nodejs.org, instale com as opções padrão e abra o Claude de novo.\"}'; fi",
+            "timeout": 30,
+            "statusMessage": "Banca · preparando este computador"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/legalsquad-disparador.mjs\" pre",
+            "statusMessage": "Banca · protegendo dados do cliente (LGPD)"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/verifica-citacoes.mjs\"",
+            "statusMessage": "Banca · conferindo as citações (reserva)"
+          },
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/legalsquad-disparador.mjs\" post",
+            "statusMessage": "Banca · conferindo a peça"
+          }
+        ]
+      }
+    ]
+  }
+}
